@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1028480647724",
+    "firebase_url": "https://projet-tikker-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "projet-tikker",
+    "storage_bucket": "projet-tikker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028480647724:android:079c1c62097484e1a80789",
+        "android_client_info": {
+          "package_name": "com.example.tikker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1028480647724-9k067s822i2b1ijvd6j4833aicvfeu8a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAw4pq4ysoVCTY3CzMVFdxI_76TRzbT8WY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1028480647724-9k067s822i2b1ijvd6j4833aicvfeu8a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

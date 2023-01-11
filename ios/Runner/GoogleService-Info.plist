@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1028480647724-96hbhm4bffjpdaj4hmsbasejtjps4vsd.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1028480647724-96hbhm4bffjpdaj4hmsbasejtjps4vsd</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBvRi3uOOFyDmFprE6yPadscVA80GZTHdY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1028480647724</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.tikker</string>
+	<key>PROJECT_ID</key>
+	<string>projet-tikker</string>
+	<key>STORAGE_BUCKET</key>
+	<string>projet-tikker.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1028480647724:ios:ef86bc9988046779a80789</string>
+	<key>DATABASE_URL</key>
+	<string>https://projet-tikker-default-rtdb.europe-west1.firebasedatabase.app</string>
+</dict>
+</plist>
