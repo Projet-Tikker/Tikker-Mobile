@@ -63,30 +63,44 @@ class _MyRegisterState extends State<MyRegister> {
         'Statut': Statut,
       },
     );
-    await FirebaseDatabase.instance.ref("users/" + uid).get().then((snapshot) {
+    await FirebaseDatabase.instance
+        .ref("users/" + uid + Email.text)
+        .get()
+        .then((snapshot) {
       if (snapshot.exists) {
-        print("Inscription Effectué !!");
+        print("Compte Déjà Existant !!");
         setState(() {
-          _errorMessage = "Inscription Effectué !!";
-          visible = true;
-          color = Colors.green;
-        });
-        setState(() {
-          connected = true;
-          AccountStatut = "Connecté";
-        });
-        print(AccountStatut);
-        print(connected);
-        Navigator.pushNamed(context, 'home');
-      } else {
-        print("Aucune Donnée n'a été transmise ! ");
-        setState(() {
-          _errorMessage = "Aucune Donnée n'a été transmise !";
+          _errorMessage = "Compte Déjà Existant !!";
           visible = true;
           color = Color.fromARGB(255, 202, 32, 20);
         });
+      } else {
+        FirebaseDatabase.instance.ref("users/" + uid).get().then((snapshot) {
+          if (snapshot.exists) {
+            print("Inscription Effectué !!");
+            setState(() {
+              _errorMessage = "Inscription Effectué !!";
+              visible = true;
+              color = Colors.green;
+            });
+            setState(() {
+              connected = true;
+              AccountStatut = "Connecté";
+            });
+            print(AccountStatut);
+            print(connected);
+            Navigator.pushNamed(context, 'home');
+          } else {
+            print("Aucune Données n'a été transmises !!");
+            setState(() {
+              _errorMessage = "Aucune Données n'a été transmises !!";
+              visible = true;
+              color = Color.fromARGB(255, 202, 32, 20);
+            });
+          }
+          FirebaseAuth.instance.signOut();
+        });
       }
-      FirebaseAuth.instance.signOut();
     });
   }
 
