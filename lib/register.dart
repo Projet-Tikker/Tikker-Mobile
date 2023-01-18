@@ -18,7 +18,6 @@ class _MyRegisterState extends State<MyRegister> {
   final Nom = TextEditingController();
   final Prenom = TextEditingController();
 
-  dynamic Statut = "Particulier";
   Color color = kErrorColor;
   bool visible = false;
   String _errorMessage = '';
@@ -60,7 +59,6 @@ class _MyRegisterState extends State<MyRegister> {
         'PassWord': PassWord.text,
         'Nom': Nom.text,
         'Prenom': Prenom.text,
-        'Statut': Statut,
       },
     );
     await FirebaseDatabase.instance
@@ -219,102 +217,49 @@ class _MyRegisterState extends State<MyRegister> {
                             height: 20,
                           ),
                           Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  "Statut :",
-                                  textAlign: TextAlign.start,
-                                ),
-                                DropdownButton(
-                                  value: Statut,
-                                  icon: Icon(Icons.arrow_downward_outlined),
-                                  elevation: 0,
-                                  isExpanded: true,
-                                  items: ["Particulier", "Professionnel"]
-                                      .map((String value) => DropdownMenuItem(
-                                            value: value,
-                                            child: Text(value),
-                                          ))
-                                      .toList(),
-                                  onChanged: (value) {
-                                    setState(
-                                      () {
-                                        Statut = value!;
-                                      },
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          Container(
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                GestureDetector(
-                                  onTap: SendUser,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      GestureDetector(
-                                        onTap: CreateUser,
-                                        child: Container(
-                                          padding: EdgeInsets.all(5),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    10, 0, 10, 0),
-                                                child: Text(
-                                                  'Enregistrement',
-                                                ),
-                                              ),
-                                              Padding(
-                                                  padding: EdgeInsets.only(
-                                                      right: 5)),
-                                              Icon(Icons.save_outlined)
-                                            ],
-                                          ),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            color: kSecondaryColor,
-                                          ),
+                                Container(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      SendUser;
+                                      CreateUser;
+                                    },
+                                    child: Container(
+                                      child: Padding(
+                                        padding:
+                                            EdgeInsets.fromLTRB(10, 10, 10, 10),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              'Enregistrement',
+                                            ),
+                                            Icon(Icons.save_outlined)
+                                          ],
                                         ),
                                       ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushNamed(context, 'login');
-                                        },
-                                        child: Container(
-                                          padding: EdgeInsets.all(5),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    10, 0, 10, 0),
-                                                child: Text(
-                                                  "Déjà un compte ?",
-                                                  style: TextStyle(
-                                                    decoration: TextDecoration
-                                                        .underline,
-                                                    color: kSecondaryColor,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: kSecondaryColor,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(context, 'login');
+                                    },
+                                    child: Container(
+                                      child: Text(
+                                        "Déjà un compte ?",
+                                        style: TextStyle(
+                                          decoration: TextDecoration.underline,
+                                          color: kSecondaryColor,
                                         ),
                                       ),
-                                    ],
+                                    ),
                                   ),
                                 ),
                               ],
