@@ -1,5 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
-
+import 'package:tikker/Gallery.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter_storage_path/flutter_storage_path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:path/path.dart' show join;
 
@@ -29,7 +31,7 @@ class _MyCameraState extends State<MyCamera> {
   Future<void> initCamera(CameraDescription camera) async {
     _controller = CameraController(
       camera,
-      ResolutionPreset.medium,
+      ResolutionPreset.high,
     );
 
     _controller.addListener(() {
@@ -71,7 +73,7 @@ class _MyCameraState extends State<MyCamera> {
       String pathImage = join((await getTemporaryDirectory()).path,
           '${DateTime.now().millisecondsSinceEpoch}.jpeg');
 
-      await _controller.takePicture(/* pathImage */);
+      await _controller.takePicture();
 
       setState(() => _lastImage = pathImage);
     } catch (e) {
@@ -93,8 +95,6 @@ class _MyCameraState extends State<MyCamera> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-
     return SafeArea(
         child: Scaffold(
       extendBodyBehindAppBar: true,
@@ -119,7 +119,7 @@ class _MyCameraState extends State<MyCamera> {
               alignment: AlignmentDirectional.bottomCenter,
               children: [
                 Transform.scale(
-                  scale: _controller.value.aspectRatio / size.aspectRatio,
+                  scale: _controller.value.aspectRatio,
                   child: Center(
                     child: AspectRatio(
                       aspectRatio: 0.92 / _controller.value.aspectRatio,
@@ -148,16 +148,52 @@ class _MyCameraState extends State<MyCamera> {
                           color: Colors.white,
                         ),
                       ),
-                      child: Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          customBorder: CircleBorder(),
-                          onTap: () => print('Gallery Access'),
-                          child: Icon(
+                      child: FutureBuilder(
+                        future: StoragePath.imagesPath,
+                        builder: ((context, snapshot) {
+                          List<dynamic> images = [];
+
+                          Widget defaultwidget = Icon(
                             Icons.photo_size_select_actual,
                             color: Colors.white,
-                          ),
-                        ),
+                          );
+
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            images = jsonDecode(snapshot.data.toString());
+
+                            if (images.length > 0 &&
+                                images[0]['files'].length > 0) {
+                              defaultwidget = CircleAvatar(
+                                backgroundColor: Colors.transparent,
+                                backgroundImage: FileImage(
+                                  File(images[0]['files'][0]),
+                                ),
+                              );
+                            }
+                          }
+
+                          return Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              customBorder: CircleBorder(),
+                              onTap: () async {
+                                dynamic data = await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => MyGallery(
+                                      images: images,
+                                    ),
+                                  ),
+                                );
+                                setState(
+                                  () => _lastImage = data['path'],
+                                );
+                              },
+                              child: defaultwidget,
+                            ),
+                          );
+                        }),
                       ),
                     ),
                   ),
@@ -203,7 +239,7 @@ class _MyCameraState extends State<MyCamera> {
                           size: 12,
                         ),
                         SizedBox(
-                          width: 0.5,
+                          width: 5,
                         ),
                         Text(
                           'Publishing...',
@@ -224,7 +260,7 @@ class _MyCameraState extends State<MyCamera> {
           );
         }),
       ),
-      floatingActionButton: _lastImage != null
+      floatingActionButton: _lastImage == ""
           ? Container(
               margin: EdgeInsets.only(bottom: 30),
               height: 80,
@@ -268,7 +304,7 @@ class _MyCameraState extends State<MyCamera> {
                 color: Colors.black,
               ),
             ),
-      floatingActionButtonLocation: _lastImage == null
+      floatingActionButtonLocation: _lastImage == ""
           ? FloatingActionButtonLocation.centerFloat
           : FloatingActionButtonLocation.endFloat,
     ));

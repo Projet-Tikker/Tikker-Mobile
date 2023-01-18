@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tikker/Gallery.dart';
 import 'package:tikker/home.dart';
 import 'package:tikker/theme.dart';
 import 'package:tikker/screens/chats/chats_screen.dart';

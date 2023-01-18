@@ -7,14 +7,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tikker/home.dart';
+import 'package:camera/camera.dart';
 
 import 'package:tikker/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    final List<CameraDescription> cameras = await availableCameras();
+    await tester.pumpWidget(
+      MyApp(
+        cameras: cameras,
+      ),
+    );
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
