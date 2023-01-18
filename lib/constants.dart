@@ -15,7 +15,6 @@ bool connected = false;
 String email = "";
 String Nom = "";
 String Prenom = "";
-String Role = "";
 
 bool visible = false;
 bool visible2 = false;

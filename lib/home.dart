@@ -64,10 +64,15 @@ class _MyHomeState extends State<MyHome> {
           Navigator.pushNamed(context, 'add');
         }
       }*/
-      if (index == 4 && _selectedIndex != 4) {
-        if (FirebaseAuth.instance.currentUser.toString().isEmpty) {}
-        ConnectedOrNot();
-        Navigator.pushNamed(context, 'account');
+      if (index == 2 && _selectedIndex != 2) {
+        Navigator.pushNamed(context, 'camera');
+      } else {
+        if (index == 4 && _selectedIndex != 4) {
+          if (FirebaseAuth.instance.currentUser.toString().isEmpty) {
+          } else {
+            Navigator.pushNamed(context, 'account');
+          }
+        }
       }
     }
   }

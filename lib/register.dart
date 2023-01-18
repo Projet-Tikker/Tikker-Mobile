@@ -96,11 +96,12 @@ class _MyRegisterState extends State<MyRegister> {
               color = Color.fromARGB(255, 202, 32, 20);
             });
           }
-          FirebaseAuth.instance.signOut();
         });
       }
     });
   }
+
+  bool Cacher = true;
 
   @override
   void dispose() {
@@ -167,18 +168,34 @@ class _MyRegisterState extends State<MyRegister> {
                           SizedBox(
                             height: 20,
                           ),
-                          TextField(
-                            controller: PassWord,
-                            textInputAction: TextInputAction.done,
-                            style: GoogleFonts.poppins(),
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              fillColor: Colors.grey.shade100,
-                              filled: true,
-                              hintText: "Password",
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
+                          Container(
+                            child: Row(
+                              children: [
+                                TextField(
+                                  controller: PassWord,
+                                  textInputAction: TextInputAction.done,
+                                  style: GoogleFonts.poppins(),
+                                  obscureText: Cacher,
+                                  decoration: InputDecoration(
+                                    fillColor: Colors.grey.shade100,
+                                    filled: true,
+                                    hintText: "Password",
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        Cacher = false;
+                                      });
+                                    },
+                                    icon: Icon(
+                                      Icons.remove_red_eye_outlined,
+                                      color: Colors.black,
+                                    ))
+                              ],
                             ),
                           ),
                           SizedBox(

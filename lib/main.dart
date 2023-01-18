@@ -5,19 +5,30 @@ import 'package:tikker/screens/chats/chats_screen.dart';
 import 'package:tikker/login.dart';
 import 'package:tikker/register.dart';
 import 'package:tikker/account.dart';
+import 'package:tikker/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:tikker/firebase_options.dart';
+import 'package:camera/camera.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  final List<CameraDescription> cameras = await availableCameras();
+  runApp(
+    MyApp(
+      cameras: cameras,
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({
+    super.key,
+    required this.cameras,
+  });
+  final List<CameraDescription> cameras;
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +37,10 @@ class MyApp extends StatelessWidget {
       home: MyHome(),
       routes: {
         'home': (context) => MyHome(),
-        /*'search': (context) => ,
-        'post': (context) => ,*/
+        /*'search': (context) => ,*/
+        'camera': (context) => MyCamera(
+              cameras: cameras,
+            ),
         'account': (context) => MyAccount(),
         'chat': (context) => ChatsScreen(),
         'login': (context) => MyLogin(),
