@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tikker/Gallery.dart';
 import 'package:tikker/home.dart';
 import 'package:tikker/theme.dart';
@@ -12,6 +13,10 @@ import 'package:tikker/firebase_options.dart';
 import 'package:camera/camera.dart';
 
 Future<void> main() async {
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+        statusBarColor: Colors.white, statusBarBrightness: Brightness.dark),
+  );
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -35,7 +40,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MyHome(),
+      home: ChatsScreen(),
       routes: {
         'home': (context) => MyHome(),
         /*'search': (context) => ,*/

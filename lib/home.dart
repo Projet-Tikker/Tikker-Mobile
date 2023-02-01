@@ -15,6 +15,7 @@ class _MyHomeState extends State<MyHome> {
   Color color = kErrorColor;
 
   int _selectedIndex = 0;
+
   void _onItemTapped(int index) {
     setState(() {
       routage(index);
@@ -94,12 +95,13 @@ class _MyHomeState extends State<MyHome> {
           actions: [
             IconButton(
               onPressed: () {
-                ConnectedOrNot();
-                if (connected == true) {
-                  Navigator.pushNamed(context, 'chat');
-                } else {
-                  Navigator.pushNamed(context, 'login');
-                }
+                //ConnectedOrNot();
+                //if (connected == true) {
+                //  Navigator.pushNamed(context, 'chat');
+                //} else {
+                //  Navigator.pushNamed(context, 'login');
+                //}
+                Navigator.pushNamed(context, 'chat');
               },
               icon: const Icon(
                 Icons.send_outlined,
