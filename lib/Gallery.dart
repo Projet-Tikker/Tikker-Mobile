@@ -31,7 +31,11 @@ class _MyGalleryState extends State<MyGallery> {
         ),
         itemBuilder: (context, index) => InkWell(
           onTap: () => Navigator.pop(
-              context, {'path': widget.images[0]['files'][index]}),
+            context,
+            {
+              'path': widget.images[0]['files'][index],
+            },
+          ),
           child: Container(
             child: FadeInImage(
               placeholder: MemoryImage(kTransparentImage),
