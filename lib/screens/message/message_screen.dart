@@ -14,24 +14,33 @@ class MessageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final msg = TextEditingController();
+    String CurrentDate = DateTime.now().hour.toString() +
+        "h" +
+        DateTime.now().minute.toString() +
+        "m" +
+        DateTime.now().second.toString() +
+        "s";
 
     Future publishMsg() async {
       String uid = FirebaseAuth.instance.currentUser!.uid.toString();
-      String ConvId = FirebaseDatabase.instance.ref("Chat/").key.toString();
+      String ConvId =
+          FirebaseDatabase.instance.ref("Chat/").push().key.toString();
       String MsgId = FirebaseDatabase.instance
           .ref("Chat/" + ConvId + "/" + uid)
+          .push()
           .key
           .toString();
       print(uid);
       print(ConvId);
+      print(MsgId);
       print(msg.text);
-      print(formattedDate);
+      print(CurrentDate);
       await FirebaseDatabase.instance
           .ref("Chat/" + ConvId + "/" + uid + "/" + MsgId)
           .set(
         {
           'Message': msg.text,
-          'Date': formattedDate,
+          'Date': CurrentDate,
         },
       );
     }
@@ -104,7 +113,7 @@ class MessageScreen extends StatelessWidget {
               child: ListView.builder(
                 physics: BouncingScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 25,
+                itemCount: 2,
                 itemBuilder: (BuildContext context, int index) {
                   return Directionality(
                     textDirection:
@@ -139,7 +148,10 @@ class MessageScreen extends StatelessWidget {
                             child: Text(
                               DateTime.now().hour.toString() +
                                   "h" +
-                                  DateTime.now().minute.toString(),
+                                  DateTime.now().minute.toString() +
+                                  "m" +
+                                  DateTime.now().second.toString() +
+                                  "s",
                               style:
                                   TextStyle(color: Colors.grey, fontSize: 12),
                             ),
@@ -183,12 +195,17 @@ class MessageScreen extends StatelessWidget {
                     ),
                   ),
                   20.widthBox,
-                  CircleAvatar(
-                    backgroundColor: kPrimaryColor,
-                    child: IconButton(
-                      icon: Icon(Icons.send_outlined),
-                      color: Colors.white,
-                      onPressed: () => publishMsg,
+                  GestureDetector(
+                    onTap: () {
+                      print("publish");
+                      publishMsg();
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: kPrimaryColor,
+                      child: Icon(
+                        Icons.send_outlined,
+                        color: Colors.white,
+                      ),
                     ),
                   )
                 ],

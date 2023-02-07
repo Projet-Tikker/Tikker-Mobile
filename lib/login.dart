@@ -95,14 +95,6 @@ class _MyLoginState extends State<MyLogin> {
   }
 
   @override
-  void dispose() {
-    Email.dispose();
-    PassWord.dispose();
-
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
@@ -181,7 +173,9 @@ class _MyLoginState extends State<MyLogin> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 GestureDetector(
-                                  onTap: LoginIn,
+                                  onTap: (() {
+                                    LoginIn();
+                                  }),
                                   child: Column(
                                     children: [
                                       Container(
@@ -256,7 +250,9 @@ class _MyLoginState extends State<MyLogin> {
                               child: Row(
                                 children: [
                                   GestureDetector(
-                                    onTap: LoginAsGuest,
+                                    onTap: (() {
+                                      LoginAsGuest();
+                                    }),
                                     child: Column(
                                       children: [
                                         Container(

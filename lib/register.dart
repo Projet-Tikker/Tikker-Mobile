@@ -209,7 +209,9 @@ class _MyRegisterState extends State<MyRegister> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     GestureDetector(
-                                      onTap: SendUser,
+                                      onTap: (() {
+                                        SendUser();
+                                      }),
                                       child: Container(
                                         padding: EdgeInsets.all(8),
                                         child: Row(

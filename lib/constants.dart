@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:intl/intl.dart';
 
 const kPrimaryColor = Color(0xFFF0C808);
 const kSecondaryColor = Color(0xFF19CBFC);
@@ -22,7 +21,3 @@ bool visible2 = false;
 bool visible3 = false;
 String AccountStatut = "Connecté en tant qu'Invité";
 final auth = FirebaseAuth.instance;
-
-var now = new DateTime.now();
-var formatter = new DateFormat.MMMd().add_jm();
-String formattedDate = formatter.format(now);

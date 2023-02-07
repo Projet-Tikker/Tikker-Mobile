@@ -12,7 +12,7 @@ Widget tabbarView() {
             padding: EdgeInsets.symmetric(horizontal: 5),
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
-              itemCount: 5,
+              itemCount: 1,
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
                   onTap: () {
