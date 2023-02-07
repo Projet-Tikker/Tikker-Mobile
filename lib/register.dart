@@ -25,9 +25,9 @@ class _MyRegisterState extends State<MyRegister> {
   Future SendUser() async {
     try {
       if (Email.text.isEmpty || PassWord.text.isEmpty) {
-        print("Veuillez Remplir tous les Champs");
+        print("Veuillez Remplir tous les Champs !!");
         setState(() {
-          _errorMessage = "Veuillez Remplir tous les Champs";
+          _errorMessage = "Veuillez Remplir tous les Champs !!";
           visible = true;
           color = color;
         });
@@ -61,47 +61,31 @@ class _MyRegisterState extends State<MyRegister> {
         'Prenom': Prenom.text,
       },
     );
-    await FirebaseDatabase.instance
-        .ref("users/" + uid + Email.text)
-        .get()
-        .then((snapshot) {
+    await FirebaseDatabase.instance.ref("users/" + uid).get().then((snapshot) {
       if (snapshot.exists) {
-        print("Compte Déjà Existant !!");
+        print("Inscription Effectué !!");
         setState(() {
-          _errorMessage = "Compte Déjà Existant !!";
+          _errorMessage = "Inscription Effectué !!";
+          visible = true;
+          color = Colors.green;
+        });
+        setState(() {
+          connected = true;
+          AccountStatut = "Connecté";
+        });
+        print(AccountStatut);
+        print(connected);
+        Navigator.pushNamed(context, 'home');
+      } else {
+        print("Aucune Donnée n'a été transmise ! ");
+        setState(() {
+          _errorMessage = "Aucune Donnée n'a été transmise !";
           visible = true;
           color = Color.fromARGB(255, 202, 32, 20);
-        });
-      } else {
-        FirebaseDatabase.instance.ref("users/" + uid).get().then((snapshot) {
-          if (snapshot.exists) {
-            print("Inscription Effectué !!");
-            setState(() {
-              _errorMessage = "Inscription Effectué !!";
-              visible = true;
-              color = Colors.green;
-            });
-            setState(() {
-              connected = true;
-              AccountStatut = "Connecté";
-            });
-            print(AccountStatut);
-            print(connected);
-            Navigator.pushNamed(context, 'home');
-          } else {
-            print("Aucune Données n'a été transmises !!");
-            setState(() {
-              _errorMessage = "Aucune Données n'a été transmises !!";
-              visible = true;
-              color = Color.fromARGB(255, 202, 32, 20);
-            });
-          }
         });
       }
     });
   }
-
-  bool Cacher = true;
 
   @override
   void dispose() {
@@ -168,34 +152,18 @@ class _MyRegisterState extends State<MyRegister> {
                           SizedBox(
                             height: 20,
                           ),
-                          Container(
-                            child: Row(
-                              children: [
-                                TextField(
-                                  controller: PassWord,
-                                  textInputAction: TextInputAction.done,
-                                  style: GoogleFonts.poppins(),
-                                  obscureText: Cacher,
-                                  decoration: InputDecoration(
-                                    fillColor: Colors.grey.shade100,
-                                    filled: true,
-                                    hintText: "Password",
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                  ),
-                                ),
-                                IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        Cacher = false;
-                                      });
-                                    },
-                                    icon: Icon(
-                                      Icons.remove_red_eye_outlined,
-                                      color: Colors.black,
-                                    ))
-                              ],
+                          TextField(
+                            controller: PassWord,
+                            textInputAction: TextInputAction.done,
+                            style: GoogleFonts.poppins(),
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              fillColor: Colors.grey.shade100,
+                              filled: true,
+                              hintText: "Password",
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -223,7 +191,7 @@ class _MyRegisterState extends State<MyRegister> {
                             style: GoogleFonts.poppins(),
                             decoration: InputDecoration(
                               fillColor: Colors.grey.shade100,
-                              filled: true,
+                              filled: false,
                               hintText: "Prenom",
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -231,53 +199,70 @@ class _MyRegisterState extends State<MyRegister> {
                             ),
                           ),
                           SizedBox(
-                            height: 20,
+                            height: 40,
                           ),
                           Container(
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Container(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      SendUser;
-                                      CreateUser;
-                                    },
-                                    child: Container(
-                                      child: Padding(
-                                        padding:
-                                            EdgeInsets.fromLTRB(10, 10, 10, 10),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: SendUser,
+                                      child: Container(
+                                        padding: EdgeInsets.all(8),
                                         child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
-                                            Text(
-                                              'Enregistrement',
+                                            Padding(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  10, 0, 10, 0),
+                                              child: Text(
+                                                'Enregistrement',
+                                              ),
                                             ),
+                                            Padding(
+                                                padding:
+                                                    EdgeInsets.only(right: 5)),
                                             Icon(Icons.save_outlined)
                                           ],
                                         ),
-                                      ),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: kSecondaryColor,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.pushNamed(context, 'login');
-                                    },
-                                    child: Container(
-                                      child: Text(
-                                        "Déjà un compte ?",
-                                        style: TextStyle(
-                                          decoration: TextDecoration.underline,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                           color: kSecondaryColor,
                                         ),
                                       ),
                                     ),
-                                  ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.pushNamed(context, 'login');
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.all(5),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  10, 0, 10, 0),
+                                              child: Text(
+                                                "Déjà un compte ?",
+                                                style: TextStyle(
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                  color: kSecondaryColor,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),

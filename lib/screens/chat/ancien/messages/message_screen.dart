@@ -1,5 +1,5 @@
 import 'package:tikker/constants.dart';
-import 'package:tikker/screens/messages/components/body.dart';
+import 'package:tikker/screens/chat/ancien/messages/components/body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

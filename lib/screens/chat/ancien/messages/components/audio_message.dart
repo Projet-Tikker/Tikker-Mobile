@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants.dart';
-import '../../../models/ChatMessage.dart';
+import '../../../../../constants.dart';
+import '../../../../../models/ChatMessage.dart';
 
 class AudioMessage extends StatelessWidget {
   const AudioMessage({super.key, required this.message});
@@ -20,10 +20,12 @@ class AudioMessage extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(Icons.play_arrow, color: message.isSender ? Colors.white : kPrimaryColor),
+          Icon(Icons.play_arrow,
+              color: message.isSender ? Colors.white : kPrimaryColor),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
               child: Stack(
                 clipBehavior: Clip.none,
                 alignment: Alignment.center,
@@ -31,7 +33,9 @@ class AudioMessage extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     height: 2,
-                    color: message.isSender ? Colors.white : kPrimaryColor.withOpacity(0.4),
+                    color: message.isSender
+                        ? Colors.white
+                        : kPrimaryColor.withOpacity(0.4),
                   ),
                   Positioned(
                     left: 0,
@@ -39,7 +43,9 @@ class AudioMessage extends StatelessWidget {
                       height: 8,
                       width: 8,
                       decoration: BoxDecoration(
-                        color: message.isSender ? Colors.white : kPrimaryColor.withOpacity(0.4),
+                        color: message.isSender
+                            ? Colors.white
+                            : kPrimaryColor.withOpacity(0.4),
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -48,7 +54,9 @@ class AudioMessage extends StatelessWidget {
               ),
             ),
           ),
-          Text('0.37', style: TextStyle(fontSize: 12, color: message.isSender ? Colors.white : null))
+          Text('0.37',
+              style: TextStyle(
+                  fontSize: 12, color: message.isSender ? Colors.white : null))
         ],
       ),
     );

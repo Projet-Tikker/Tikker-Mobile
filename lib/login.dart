@@ -196,18 +196,23 @@ class _MyLoginState extends State<MyLogin> {
                                               ),
                                               child: Text(
                                                 'Connexion',
+                                                style: TextStyle(
+                                                    color: Colors.white),
                                               ),
                                             ),
                                             Padding(
                                                 padding:
                                                     EdgeInsets.only(right: 5)),
-                                            Icon(Icons.lock_open_outlined)
+                                            Icon(
+                                              Icons.lock_open_outlined,
+                                              color: Colors.white,
+                                            )
                                           ],
                                         ),
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(20),
-                                          color: kSecondaryColor,
+                                          color: Colors.grey[800],
                                         ),
                                       ),
                                     ],
@@ -228,7 +233,7 @@ class _MyLoginState extends State<MyLogin> {
                                             style: TextStyle(
                                               decoration:
                                                   TextDecoration.underline,
-                                              color: kSecondaryColor,
+                                              color: Colors.grey[800],
                                             ),
                                           ),
                                         ),
@@ -266,18 +271,23 @@ class _MyLoginState extends State<MyLogin> {
                                                 ),
                                                 child: Text(
                                                   "Connexion en tant qu'Invité",
+                                                  style: TextStyle(
+                                                      color: Colors.white),
                                                 ),
                                               ),
                                               Padding(
                                                   padding: EdgeInsets.only(
                                                       right: 5)),
-                                              Icon(Icons.no_accounts_outlined)
+                                              Icon(
+                                                Icons.no_accounts_outlined,
+                                                color: Colors.white,
+                                              )
                                             ],
                                           ),
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(20),
-                                            color: kSecondaryColor,
+                                            color: Colors.grey[800],
                                           ),
                                         ),
                                       ],

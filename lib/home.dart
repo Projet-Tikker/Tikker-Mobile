@@ -78,6 +78,22 @@ class _MyHomeState extends State<MyHome> {
     }
   }
 
+  Future ConnectedOrNot() async {
+    print(connected);
+    if (connected == true) {
+      visible = true;
+      visible2 = true;
+      AccountStatut = "Connecté";
+      email = auth.currentUser!.email!;
+      visible3 = false;
+    } else {
+      print("Connecté en tant qu'Invité");
+      AccountStatut = "Connecté en tant qu'Invité";
+      visible3 = true;
+      visible = false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -95,13 +111,12 @@ class _MyHomeState extends State<MyHome> {
           actions: [
             IconButton(
               onPressed: () {
-                //ConnectedOrNot();
-                //if (connected == true) {
-                //  Navigator.pushNamed(context, 'chat');
-                //} else {
-                //  Navigator.pushNamed(context, 'login');
-                //}
-                Navigator.pushNamed(context, 'chat');
+                ConnectedOrNot();
+                if (connected == true) {
+                  Navigator.pushNamed(context, 'chat');
+                } else {
+                  Navigator.pushNamed(context, 'login');
+                }
               },
               icon: const Icon(
                 Icons.send_outlined,

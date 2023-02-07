@@ -1,7 +1,7 @@
 import 'package:tikker/components/filled_outline_button.dart';
 import 'package:tikker/constants.dart';
 import 'package:tikker/models/Chat.dart';
-import 'package:tikker/screens/messages/message_screen.dart';
+import 'package:tikker/screens/chat/ancien/messages/message_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'chat_card.dart';

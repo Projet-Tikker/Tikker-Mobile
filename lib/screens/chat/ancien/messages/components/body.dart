@@ -1,7 +1,7 @@
 import 'package:tikker/constants.dart';
 import 'package:tikker/models/ChatMessage.dart';
-import 'package:tikker/screens/messages/components/message.dart';
-import 'package:tikker/screens/messages/components/text_message.dart';
+import 'package:tikker/screens/chat/ancien/messages/components/message.dart';
+import 'package:tikker/screens/chat/ancien/messages/components/text_message.dart';
 import 'package:flutter/material.dart';
 
 import 'chat_input_fields.dart';

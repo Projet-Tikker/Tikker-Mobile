@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 
 const kPrimaryColor = Color(0xFFF0C808);
 const kSecondaryColor = Color(0xFF19CBFC);
@@ -22,18 +23,6 @@ bool visible3 = false;
 String AccountStatut = "Connecté en tant qu'Invité";
 final auth = FirebaseAuth.instance;
 
-Future ConnectedOrNot() async {
-  print(connected);
-  if (connected == true) {
-    visible = true;
-    visible2 = true;
-    AccountStatut = "Connecté";
-    email = auth.currentUser!.email!;
-    visible3 = false;
-  } else {
-    print("Connecté en tant qu'Invité");
-    AccountStatut = "Connecté en tant qu'Invité";
-    visible3 = true;
-    visible = false;
-  }
-}
+var now = new DateTime.now();
+var formatter = new DateFormat.MMMd().add_jm();
+String formattedDate = formatter.format(now);

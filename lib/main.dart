@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tikker/Gallery.dart';
 import 'package:tikker/home.dart';
+import 'package:tikker/screens/message/message.dart';
 import 'package:tikker/theme.dart';
-import 'package:tikker/screens/chats/chats_screen.dart';
+import 'package:tikker/screens/chat/chats_screen.dart';
 import 'package:tikker/login.dart';
 import 'package:tikker/register.dart';
 import 'package:tikker/account.dart';
@@ -11,6 +12,7 @@ import 'package:tikker/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:tikker/firebase_options.dart';
 import 'package:camera/camera.dart';
+import 'package:get/get.dart';
 
 Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(
@@ -38,9 +40,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ChatsScreen(),
+      home: MyHome(),
       routes: {
         'home': (context) => MyHome(),
         /*'search': (context) => ,*/
@@ -49,6 +51,7 @@ class MyApp extends StatelessWidget {
             ),
         'account': (context) => MyAccount(),
         'chat': (context) => ChatsScreen(),
+        'message': (context) => MessageScreen(),
         'login': (context) => MyLogin(),
         'auth': (context) => MyAuth(),
         'register': (context) => MyRegister(),
