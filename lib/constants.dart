@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 const kPrimaryColor = Color(0xFFF0C808);
 const kSecondaryColor = Color(0xFF19CBFC);
@@ -12,12 +13,16 @@ const kValideColor = Color.fromARGB(255, 53, 196, 25);
 const kDefaultPadding = 20.0;
 bool connected = false;
 
-String email = "";
-String Nom = "";
-String Prenom = "";
+String email = "Default Email";
+String nom = "Default Nom";
+String prenom = "Default Prenom";
+String pseudo = "Default Pseudo";
+String desc = "Default Description";
 
 bool visible = false;
 bool visible2 = false;
-bool visible3 = false;
+bool visible3 = true;
 String AccountStatut = "Connecté en tant qu'Invité";
 final auth = FirebaseAuth.instance;
+
+String ConvId = "";

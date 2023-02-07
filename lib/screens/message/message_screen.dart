@@ -23,8 +23,6 @@ class MessageScreen extends StatelessWidget {
 
     Future publishMsg() async {
       String uid = FirebaseAuth.instance.currentUser!.uid.toString();
-      String ConvId =
-          FirebaseDatabase.instance.ref("Chat/").push().key.toString();
       String MsgId = FirebaseDatabase.instance
           .ref("Chat/" + ConvId + "/" + uid)
           .push()
