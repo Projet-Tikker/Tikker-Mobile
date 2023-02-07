@@ -58,7 +58,6 @@ class _MyLoginState extends State<MyLogin> {
       );
       setState(() {
         connected = true;
-        AccountStatut = "Connecté";
         visible = true;
         visible3 = false;
       });
@@ -79,6 +78,7 @@ class _MyLoginState extends State<MyLogin> {
             pseudo = snapshot.child("Pseudo").value.toString();
             print(snapshot.child("Desc").value.toString());
             desc = snapshot.child("Desc").value.toString();
+            AccountStatut = "Connecté en tant que " + pseudo;
           });
         }
       });

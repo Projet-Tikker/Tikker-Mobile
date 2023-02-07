@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:get/get.dart';
 
 const kPrimaryColor = Color(0xFFF0C808);
 const kSecondaryColor = Color(0xFF19CBFC);
