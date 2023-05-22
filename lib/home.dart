@@ -83,13 +83,12 @@ class _MyHomeState extends State<MyHome> {
     if (connected == true) {
       visible = true;
       visible2 = true;
-      AccountStatut = "Connecté";
-      email = auth.currentUser!.email!;
-      visible3 = false;
+      AccountStatut = "Connecté" + email;
+      visible3 = true;
     } else {
       print("Connecté en tant qu'Invité");
       AccountStatut = "Connecté en tant qu'Invité";
-      visible3 = true;
+      visible3 = false;
       visible = false;
     }
   }

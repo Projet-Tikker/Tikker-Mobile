@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:tikker/constants.dart';
 
@@ -76,38 +77,92 @@ class _MyAccountState extends State<MyAccount> {
               Visibility(
                 child: Column(
                   children: [
+                    SizedBox(
+                      height: 10,
+                    ),
                     Text(
                       'Connecté en tant que :',
                       style: TextStyle(fontSize: 16),
                     ),
                     SizedBox(
-                      height: 0,
+                      height: 5,
                     ),
                     Text(
-                      email,
+                      pseudo,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Bonjour M.",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Text(
+                          nom + " " + prenom,
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Votre Email est : ",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Text(
+                          email,
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Description :",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      desc,
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
                       height: 40,
                     ),
-                    ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size.fromHeight(50),
-                        backgroundColor: Color(0xFF4F83BF),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size.fromHeight(50),
+                          backgroundColor: Color(0xFF4F83BF),
+                        ),
+                        icon: Icon(
+                          Icons.logout_outlined,
+                          size: 32,
+                        ),
+                        label: Text(
+                          "Déconnection !",
+                          style: TextStyle(fontSize: 24),
+                        ),
+                        onPressed: () {
+                          auth.signOut();
+                          Navigator.pushNamed(context, 'login');
+                        },
                       ),
-                      icon: Icon(
-                        Icons.logout_outlined,
-                        size: 32,
-                      ),
-                      label: Text(
-                        "Déconnection !",
-                        style: TextStyle(fontSize: 24),
-                      ),
-                      onPressed: () {
-                        auth.signOut();
-                        Navigator.pushNamed(context, 'login');
-                      },
                     ),
                   ],
                 ),

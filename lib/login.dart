@@ -58,7 +58,29 @@ class _MyLoginState extends State<MyLogin> {
       );
       setState(() {
         connected = true;
-        AccountStatut = "Connecté";
+        visible = true;
+        visible3 = false;
+      });
+      String uid = FirebaseAuth.instance.currentUser!.uid.toString();
+      await FirebaseDatabase.instance
+          .ref("users/" + uid)
+          .get()
+          .then((snapshot) {
+        if (snapshot.exists) {
+          setState(() {
+            print(snapshot.child("Email").value.toString());
+            email = snapshot.child("Email").value.toString();
+            print(snapshot.child("Nom").value.toString());
+            nom = snapshot.child("Nom").value.toString();
+            print(snapshot.child("Prenom").value.toString());
+            prenom = snapshot.child("Prenom").value.toString();
+            print(snapshot.child("Pseudo").value.toString());
+            pseudo = snapshot.child("Pseudo").value.toString();
+            print(snapshot.child("Desc").value.toString());
+            desc = snapshot.child("Desc").value.toString();
+            AccountStatut = "Connecté en tant que " + pseudo;
+          });
+        }
       });
       print(connected);
       print(AccountStatut);
@@ -78,6 +100,8 @@ class _MyLoginState extends State<MyLogin> {
       setState(() {
         connected = false;
         AccountStatut = "Connecté en tant qu'Invité";
+        visible = false;
+        visible3 = true;
       });
       print(AccountStatut);
       print(connected);
@@ -131,7 +155,13 @@ class _MyLoginState extends State<MyLogin> {
                               0.05), // 5% de la largeur
                       child: Column(
                         children: [
-                          TextField(
+                          TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please Enter Your Email";
+                              }
+                              return null;
+                            },
                             controller: Email,
                             textInputAction: TextInputAction.next,
                             keyboardType: TextInputType.emailAddress,
@@ -151,7 +181,13 @@ class _MyLoginState extends State<MyLogin> {
                           SizedBox(
                             height: 30,
                           ),
-                          TextField(
+                          TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please Enter Your Password";
+                              }
+                              return null;
+                            },
                             controller: PassWord,
                             textInputAction: TextInputAction.done,
                             style: GoogleFonts.poppins(),

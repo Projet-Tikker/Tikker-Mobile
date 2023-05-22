@@ -17,14 +17,22 @@ class _MyRegisterState extends State<MyRegister> {
   final PassWord = TextEditingController();
   final Nom = TextEditingController();
   final Prenom = TextEditingController();
+  final Pseudo = TextEditingController();
+  final Bio = TextEditingController();
 
   Color color = kErrorColor;
   bool visible = false;
   String _errorMessage = '';
+  String _errorMessage1 = '';
 
   Future SendUser() async {
     try {
-      if (Email.text.isEmpty || PassWord.text.isEmpty) {
+      if (Email.text.isEmpty ||
+          PassWord.text.isEmpty ||
+          Nom.text.isEmpty ||
+          Prenom.text.isEmpty ||
+          Pseudo.text.isEmpty ||
+          Bio.text.isEmpty) {
         print("Veuillez Remplir tous les Champs !!");
         setState(() {
           _errorMessage = "Veuillez Remplir tous les Champs !!";
@@ -53,12 +61,16 @@ class _MyRegisterState extends State<MyRegister> {
     print(PassWord.text);
     print(Nom.text);
     print(Prenom.text);
+    print(Pseudo.text);
+    print(Bio.text);
     await FirebaseDatabase.instance.ref("users/" + uid).set(
       {
         'Email': Email.text,
         'PassWord': PassWord.text,
         'Nom': Nom.text,
         'Prenom': Prenom.text,
+        'Pseudo': Pseudo.text,
+        'Desc': Bio.text,
       },
     );
     await FirebaseDatabase.instance.ref("users/" + uid).get().then((snapshot) {
@@ -132,7 +144,13 @@ class _MyRegisterState extends State<MyRegister> {
                               0.05), // 5% de la largeur
                       child: Column(
                         children: [
-                          TextField(
+                          TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please Enter an Email";
+                              }
+                              return null;
+                            },
                             controller: Email,
                             textInputAction: TextInputAction.next,
                             keyboardType: TextInputType.emailAddress,
@@ -152,7 +170,13 @@ class _MyRegisterState extends State<MyRegister> {
                           SizedBox(
                             height: 20,
                           ),
-                          TextField(
+                          TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please Enter a Password";
+                              }
+                              return null;
+                            },
                             controller: PassWord,
                             textInputAction: TextInputAction.done,
                             style: GoogleFonts.poppins(),
@@ -169,7 +193,13 @@ class _MyRegisterState extends State<MyRegister> {
                           SizedBox(
                             height: 20,
                           ),
-                          TextField(
+                          TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please Enter a Name";
+                              }
+                              return null;
+                            },
                             controller: Nom,
                             textInputAction: TextInputAction.done,
                             style: GoogleFonts.poppins(),
@@ -185,14 +215,64 @@ class _MyRegisterState extends State<MyRegister> {
                           SizedBox(
                             height: 20,
                           ),
-                          TextField(
+                          TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please Enter a Prenom";
+                              }
+                              return null;
+                            },
                             controller: Prenom,
                             textInputAction: TextInputAction.done,
                             style: GoogleFonts.poppins(),
                             decoration: InputDecoration(
                               fillColor: Colors.grey.shade100,
-                              filled: false,
+                              filled: true,
                               hintText: "Prenom",
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please Enter a Pseudo";
+                              }
+                              return null;
+                            },
+                            controller: Pseudo,
+                            textInputAction: TextInputAction.done,
+                            style: GoogleFonts.poppins(),
+                            decoration: InputDecoration(
+                              fillColor: Colors.grey.shade100,
+                              filled: false,
+                              hintText: "Pseudo",
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please Enter a Little Description";
+                              }
+                              return null;
+                            },
+                            controller: Bio,
+                            textInputAction: TextInputAction.done,
+                            style: GoogleFonts.poppins(),
+                            decoration: InputDecoration(
+                              fillColor: Colors.grey.shade100,
+                              filled: true,
+                              hintText: "Description",
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -223,20 +303,28 @@ class _MyRegisterState extends State<MyRegister> {
                                                   10, 0, 10, 0),
                                               child: Text(
                                                 'Enregistrement',
+                                                style: TextStyle(
+                                                    color: Colors.white),
                                               ),
                                             ),
                                             Padding(
                                                 padding:
                                                     EdgeInsets.only(right: 5)),
-                                            Icon(Icons.save_outlined)
+                                            Icon(
+                                              Icons.save_outlined,
+                                              color: Colors.white,
+                                            )
                                           ],
                                         ),
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(20),
-                                          color: kSecondaryColor,
+                                          color: Colors.grey[800],
                                         ),
                                       ),
+                                    ),
+                                    SizedBox(
+                                      width: 50,
                                     ),
                                     GestureDetector(
                                       onTap: () {
@@ -256,7 +344,7 @@ class _MyRegisterState extends State<MyRegister> {
                                                 style: TextStyle(
                                                   decoration:
                                                       TextDecoration.underline,
-                                                  color: kSecondaryColor,
+                                                  color: Colors.grey[800],
                                                 ),
                                               ),
                                             ),
@@ -283,7 +371,7 @@ class _MyRegisterState extends State<MyRegister> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              _errorMessage,
+                              _errorMessage1,
                               style: TextStyle(color: color),
                             ),
                           ),
@@ -303,15 +391,15 @@ class _MyRegisterState extends State<MyRegister> {
   void ValidateEmail(String val) {
     if (val.isEmpty) {
       setState(() {
-        _errorMessage = "Email can not be empty";
+        _errorMessage1 = "Email can not be empty";
       });
     } else if (!EmailValidator.validate(val, true)) {
       setState(() {
-        _errorMessage = "Invalid Email Address";
+        _errorMessage1 = "Invalid Email Address";
       });
     } else {
       setState(() {
-        _errorMessage = "";
+        _errorMessage1 = "";
       });
     }
   }
